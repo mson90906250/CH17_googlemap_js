@@ -220,8 +220,8 @@ public class M1706 extends AppCompatActivity implements LocationListener {
         locationMgr.addGpsStatusListener(gpsListener);
 
         // Location Listener
-        long minTime = 1000;// ms
-        float minDist = 1.0f;// meter
+        long minTime = 10000;// ms
+        float minDist = 10.0f;// meter
         locationMgr.requestLocationUpdates(provider, minTime, minDist,
                 this);
     }

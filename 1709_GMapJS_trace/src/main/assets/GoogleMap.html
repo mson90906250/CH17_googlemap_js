@@ -36,7 +36,7 @@
  //----------------------------------------------
 	function initialize() {
 		var mapOptions = {
-			zoom : 18,//地圖比例
+			zoom : 12,//地圖比例
 		    center : new google.maps.LatLng(lat, lon),//地圖預設點
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		//地圖類型
@@ -84,7 +84,7 @@
 		var request = {
 			origin : start,
 			destination : end,
-			travelMode : google.maps.DirectionsTravelMode.WALKING
+			travelMode : google.maps.DirectionsTravelMode.DRIVING
 
 			//google.maps.TravelMode.DRIVING (預設) 表示使用道路網的標準行車路線。
 			//google.maps.TravelMode.BICYCLING 要求使用單車道及專用道路的單車路線。
