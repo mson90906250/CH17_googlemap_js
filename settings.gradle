@@ -1,1 +1,1 @@
-include ':app', ':1705_Google_map_JS', ':1706_GMap_JS_spinner', '1701_Google_map_hotel_JS', '1706c_GMap_JS_spinner_all_use_JSON', '1707_GMapJS_Location', '1708_GMapJS_Navigation', '1709_GMapJS_trace'
+include  ':1705_Google_map_JS', ':1706_GMap_JS_spinner', '1701_Google_map_hotel_JS', '1706c_GMap_JS_spinner_all_use_JSON', '1707_GMapJS_Location', '1708_GMapJS_Navigation', '1709_GMapJS_trace'
