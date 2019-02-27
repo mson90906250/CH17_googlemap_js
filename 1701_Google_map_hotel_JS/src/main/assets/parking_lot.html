@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <!-- 載入google map api -->
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSnyMTQAIeclcmF-1y1ufEj3mzZb6sPx4" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+    <script src="js/parkinglot02.js"></script>
+    <!-- <script language="javascript">
+
+        var opendata = [];//用於接收opendata的資料
+
+        $(function(){
+        //ajax接收opendata
+            $.ajax({
+                type:"GET",
+                url:"http://192.168.60.101/website/get_opendata_parkinglot.php",
+                dataType:"json",
+                success:getData,
+                error:function(){
+                    alert("無資料接收");
+                }
+            });
+        });//end fun
+
+        //算出距離的公式
+        function getDistance(Lat1, Long1, Lat2, Long2){
+            ConvertDegreeToRadians=function(degrees){
+                return (Math.PI/180)*degrees;
+            }
+            var Lat1r = ConvertDegreeToRadians(Lat1);
+            var Lat2r = ConvertDegreeToRadians(Lat2);
+            var Long1r = ConvertDegreeToRadians(Long1);
+            var Long2r = ConvertDegreeToRadians(Long2);
+
+            var R = 6371; // 地球半徑(km)
+            var d = Math.acos(Math.sin(Lat1r) * Math.sin(Lat2r) +
+             Math.cos(Lat1r) * Math.cos(Lat2r) * Math.cos(Long2r-Long1r)) * R;
+            return d; // 兩點的距離 (KM)
+        }
+
+        //將接收到的資料傳給變數接收
+        function getData(data){
+            //做之前需先檢查資料的結構,有些是很像json結構,但卻在層多了個大括號
+            opendata = data.parkingLots;
+
+            createMap();
+
+        }
+
+        function createMap(){
+            //設定地圖的中心點
+            var map_div = document.getElementById("map_div");
+            //取得經緯度
+            var lat = 24.170566;
+            var lng = 120.609932;
+
+            //方法會將坐標轉成複雜的數字
+            var latlng = new google.maps.LatLng(lat,lng);
+
+
+            var gmap = new google.maps.Map(map_div,{//選擇要呈現地圖的框架
+                zoom:8,//放大的倍率(8倍大約可以將整個台灣顯示出來)
+                center:latlng,//設置地圖的中心點
+                mapTypeId:google.maps.MapTypeId.ROADMAP//設置地圖種類
+            });
+
+        //建立標記記錄指定的地點
+            var marker = new google.maps.Marker({
+                position:latlng,
+                icon:"image/icon/flag.png",
+                map:gmap,
+                title:"Somewhere!!!"
+            });
+
+        //給與標記一個訊息視窗
+            google.maps.event.addListener(marker,"click",function(event){
+                var infowindow = new google.maps.InfoWindow({
+                    content:"<div class='infowindow_div'><div class='info'><a href='#info_img_popup' data-rel='popup' data-position-to='window'><img class='info_img' src='image/tcnr.jpg' alt=''></a></div><p>勞動部勞動力發展署中彰投分署（臺中職訓局）</p>	<p>地址： 407台中市西屯區工業區一路100號</p><p>官網:<a href='https://tcnr.wda.gov.tw/'>https://tcnr.wda.gov.tw/</a></p>	</div>",
+                });
+                infowindow.open(gmap,marker);//設定訊息視窗出現的位置
+            });
+
+            //設置多個地標
+            var marker = [];
+
+            for(var i = 0; i<opendata.length; i++){
+
+
+            latlng = new google.maps.LatLng(opendata[i].wgsY,opendata[i].wgsX);
+
+            //建立標記記錄指定的地點
+                marker[i] = new google.maps.Marker({
+                position:latlng,
+                icon:"image/icon/flag.png",
+                map:gmap,
+                title: opendata[i].parkName,
+            });
+
+                //給與標記一個訊息視窗
+                google.maps.event.addListener(marker[i],"click",function(event){
+
+                    //取得在地圖上觸發點擊的坐標
+                    var lat = event.latLng.lat();//取維度
+                    var lng = event.latLng.lng();//取經度
+
+                    //算出與各地標距離,並從中選取最短且符合設定的距離
+                    for(var j=0; j<opendata.length; j++){
+
+
+                        //取得距離
+                        var dist = getDistance(lat,lng,opendata[j].wgsY,opendata[j].wgsX);
+
+                        //若距離符合設定則顯示訊息視窗
+                        if (dist<0.05) {
+                            var infowindow = new google.maps.InfoWindow({
+                                content: "<div><p>Name= "+opendata[j].parkName+"</p><p>剩餘車位= "+opendata[j].surplusSpace+"</p></div>",
+                            });
+                            infowindow.open(gmap,marker[j]);//設定訊息視窗出現的位置
+                        }//if
+                    }//for
+
+                });
+
+            }//for
+
+        }
+
+    </script> -->
+    <style>
+		.google_map_div{
+			margin:0 auto 0 auto;
+			border: solid 1px;
+			width: 75vw;
+			height: 75vh;
+			box-shadow: 0px 0px 50px 20px #ccc;
+		}
+		.info{
+			/*margin:0 auto 0 auto;  沒有作用*/
+			text-align: center;
+		}
+		.info_img{
+			height: 100px;
+			width: 200px;
+		}
+	</style>
+</head>
+
+<body>
+<!-- Home -->
+<div data-role="page" id="home">
+
+    <div data-role="header" data-position="fixed" data-theme="b">
+        <h1>Home</h1>
+    </div>
+    <!-- header end -->
+
+    <div role="main" class="ui-content">
+        <div class="google_map_div" id="map_div"></div>
+        <!-- 放置Google map的div end -->
+
+
+        <div data-role="popup" id="info_img_popup" data-dismissible="false">
+            <a href='#' data-role='button' data-rel='back' data-icon='delete' data-iconpos='notext' class='ui-btn-right' >關閉</a>
+            <img src="image/tcnr.jpg" alt="">
+        </div>
+        <!-- popup的div end-->
+        <div id="msg_json"></div>
+    </div>
+    <!-- main end -->
+
+    <div data-role="footer" data-position="fixed" data-theme="b">
+        <h3>footer</h3>
+    </div>
+    <!-- footer end -->
+</div>
+<!-- Home end -->
+
+</body>
+</html>

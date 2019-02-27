@@ -1,0 +1,55 @@
+
+.logo{
+	width: 300px;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: auto;
+	margin-left: auto;
+
+}
+#logo_img{
+	box-shadow: 10px 10px 50px 10px #bbb;
+	border-radius:150px;
+}
+.pimg{/*pimg01圖片的框架*/
+
+	width: 75%;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: auto;
+	margin-left: auto;
+	/*給圖片陰影 有五個參數 x坐標(正值為陰影向右平移x) y坐標(正值向下平移y) 渲染程度 寬度 陰影顔色*/
+	
+	
+}
+.ptext{/*ptext01文字的框架*/
+	text-align: center;
+	color: #F4B035;
+	font-size: 32px;
+
+}
+.pabout h1{
+	color: #13C283;
+	font-size: 45px;
+}
+#pimg01{
+	width: 100%;
+	box-shadow:20px 10px 50px 2px #aaa; 
+	border-radius: 10%;
+}
+#pimg02{
+	width: 100%;
+	box-shadow:20px 10px 50px 2px #aaa; 
+	border-radius: 10%;
+}
+
+.panel-img{/*給panel裡的<img>用*/
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: auto;
+	margin-left: auto;
+}
+.panel-text{/*給panel裡的<p>用*/
+	text-align: center;
+	font-size: 10px;
+}

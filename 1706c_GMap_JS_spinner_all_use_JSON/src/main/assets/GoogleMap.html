@@ -1,0 +1,148 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta http-equiv="Content-Language" content="zh-tw" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <style type="text/css">
+   html {
+              height: 100%
+			  }
+			  body {
+			  height: 100%;
+			  margin 0;
+			  padding:0
+			  }
+			  #map_canvas {
+			  height: 100%
+			  margin 0;
+			  padding:0
+			  }
+			  </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-be5pwhgwxTsdF35doJEbsUw086Hbso8&callback=initMap"
+            async defer></script>
+    <script  type="text/javascript">
+       	  var map;
+    	  var lat      = AndroidFunction.GetLat();  //緯度 GetLat() 是java class 傳過來的值
+    	  var lon      = AndroidFunction.GetLon();  //經度GetLon() 是java class 傳過來.
+    	  var jcontent = AndroidFunction.Getjcontent(); //水滴標記的title Getjcontent() 是java class 傳來.
+
+    	  //---17-06c------------------------------------------------
+          var jsonArray = AndroidFunction.GetJsonArry();
+          var locarry = JSON.parse(jsonArray);
+          //---17-06c------------------------------------------------
+
+
+    //測試用,用來debug
+    //	  var lat      = '24.172127';  //緯度 GetLat() 是java class 傳過來的值
+    //	  var lon      = '120.610313';  //經度GetLon() 是java class 傳過來.
+    //	  var jcontent = 'aaaaaa'; //水滴標記的title Getjcontent() 是java class 傳來.
+
+ //----------------------------------------------
+	function initialize() {
+		var mapOptions = {
+			zoom : 12,//地圖比例
+		    center : new google.maps.LatLng(lat, lon),//地圖預設點
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		//地圖類型
+		//ROADMAP 一般地圖
+		//HYBRID 衛星地圖
+		//ATELLITE  衛星地圖(無顯示街道)
+		//TERRAIN 地理地圖
+		};
+		map = new google.maps.Map(document.getElementById('map_canvas'),
+				mapOptions);
+		//mark();
+
+		showMarkers();
+	}
+
+	//標籤
+	function mark() {
+		var myLatLng = new google.maps.LatLng(lat, lon);
+		var myMarker = new google.maps.Marker({
+			position : myLatLng,
+			map : map,
+			 icon: 'pikachu.png'
+		});
+
+		//訊息視窗
+		var infowindow = new google.maps.InfoWindow({
+		content : "<font color=red><b>"+jcontent+"</b></font><br>緯度:"+lat+"<br>經度:"+lon
+		});
+		google.maps.event.addListener(myMarker, 'click', function() {
+
+		 //----------------------按下水滴會跳動,再按停止----------------
+            if (myMarker.getAnimation() !== null) {
+              myMarker.setAnimation(null);
+            } else {
+              myMarker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        //-------------------------
+
+          //---- infowindow.close() ------//
+      if( prev_infowindow ) {
+           prev_infowindow.close();
+        }
+        prev_infowindow = infowindow;
+        //---------------------------------------
+        infowindow.open(map, myMarker);
+
+		});
+	}
+
+	////////////////////////// infowindow.close()///////////////////////////////
+ //標籤
+
+ function marker(title, jlat, jlon) {
+
+  var myLatLng = new google.maps.LatLng(jlat,jlon); // 緯度, 經度
+  var myMarker = new google.maps.Marker({position : myLatLng, map : map, icon: 'pikachu.png'});
+
+  // 訊息視窗
+  var content = title
+  var infowindow = new google.maps.InfoWindow({
+   content : "<font color=red><b>" + title + "</b></font>" + "<br>經度: " + jlon + "<br>緯度: "+ jlat
+  });
+
+  google.maps.event.addListener(myMarker, 'click', function() {
+
+infowindow.open(map, myMarker);
+//----------------------按下水滴會跳動,再按停止----------------
+            if (myMarker.getAnimation() !== null) {
+              myMarker.setAnimation(null);
+            } else {
+              myMarker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+//-------------------------
+  //---- infowindow.close() ------//
+    if( prev_infowindow ) {
+           prev_infowindow.close();
+        }
+        prev_infowindow = infowindow;
+        //--------------------------------------
+  });
+ }
+////////////////////////////////////////////////////////////////////
+
+
+
+
+	function showMarkers(){
+         for (var ii = 0; ii < locarry.length; ii++){
+ if(locarry[ii].jlat!=lat && locarry[ii].jlon!=lon){
+				marker(
+				locarry[ii].title,
+				locarry[ii].jlat,
+				locarry[ii].jlon);
+			}
+		 }
+
+	}
+    </script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas" style="width:100%; height:97%"></div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+    <!-- 載入google map api -->
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSnyMTQAIeclcmF-1y1ufEj3mzZb6sPx4" type="text/javascript"></script>
+    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+    <script>	
+		$(function(){
+			$("#map").on("pageshow",getMap);//進入map頁面後執行getMAP();
+		})
+
+		var curGeoPoint = {lat:24.170566,lng:120.609932};//給予初始值,避免直接按下map後而無地圖出現
+
+		function getGeo(lat,lng){
+			curGeoPoint.lat = lat;
+			curGeoPoint.lng = lng;
+			// mappage 的 pageshow事件 會呼叫 GetMap() 顯示地圖
+			$.mobile.changePage("#map","slide",false,true);
+			//GetMap(); // 也可以在此直接呼叫 GetMap() 顯示地圖
+			e.preventDefault(); // 避免重複觸發多個選項
+		}
+
+		function getMap(){
+			//設定地圖的中心點
+			var map_div = document.getElementById("map_div");
+			//取得經緯度
+			var lat = curGeoPoint.lat;
+			var lng = curGeoPoint.lng;
+
+			var latlng = new google.maps.LatLng(lat,lng);
+
+			var gmap = new google.maps.Map(map_div,{
+				zoom:15,
+				center:latlng,
+				mapTypeId:google.maps.MapTypeId.ROADMAP
+			});
+
+			//建立標記記錄指定的地點
+			var marker = new google.maps.Marker({
+				position:latlng,
+				icon:"image/icon/flag.png",
+				map:gmap,
+				title:"Somewhere!!!"
+			});
+
+			//給與標記一個訊息視窗
+			google.maps.event.addListener(marker,"click",function(event){
+				var infowindow = new google.maps.InfoWindow({
+					content: '<div class="title">' + "Destination!" + "</div>" ,
+				});
+				infowindow.open(gmap,marker);//設定訊息視窗出現的位置
+			});
+		}
+
+	</script>
+    <style>
+	.google_map_div{
+		margin:0 auto 0 auto;
+		border: solid 1px;
+		width: 100vw;
+		height: 100vh;
+		box-shadow: 0px 0px 50px 20px #ccc;
+	}
+	.info{
+		/*margin:0 auto 0 auto;  沒有作用*/
+		text-align: center;
+	}
+	.info_img{
+		height: 100px;
+		width: 200px;
+	}
+</style>
+
+</head>
+
+<body>
+<!-- Home -->
+<div data-role="page" id="home">
+
+    
+    <!-- header end -->
+
+   
+        
+       
+            <ul data-role="listview" data-inset="true" data-theme="c">
+                <li data-role="list-divider">景點</li>
+                <li><a href="javascript:getGeo(24.170566,120.609932)">CVTC</a></li>
+                <li><a href="javascript:getGeo(23.8523012,120.9009427)">日月潭</a></li>
+                <li><a href="javascript:getGeo(25.1023602,121.5463038)">故宮</a></li>
+                <li><a href="javascript:getGeo(25.0339687,121.5622835)">臺北101</a></li>
+                <li><a href="javascript:getGeo(24.3213549,120.6933333)">探索樂園</a></li>
+            </ul>
+        
+
+    </div>
+    <!-- main end -->
+
+   
+    <!-- footer end -->
+</div>
+<!-- Home end -->
+<!-- map -->
+<div data-role="page" id="map">
+
+    <div data-role="header" data-position="fixed" data-theme="b">
+        <a href="#" data-theme="a" data-rel="back">back</a>
+        <h1>map</h1>
+    </div>
+    <!-- header end -->
+
+    
+        <div class="google_map_div" id="map_div"></div>
+        <!-- 放置Google map的div end -->
+
+    
+    <!-- main end -->
+
+    
+    <!-- footer end -->
+</div>
+<!-- map end -->
+
+</body>
+</html>
