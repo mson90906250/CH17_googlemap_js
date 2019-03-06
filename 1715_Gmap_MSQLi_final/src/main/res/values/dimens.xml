@@ -1,0 +1,50 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16sp</dimen>
+    <dimen name="activity_vertical_margin">16sp</dimen>
+    <dimen name="fontsize">20sp</dimen>
+    <dimen name="pa01">20sp</dimen>
+    <dimen name="Spacing">15sp</dimen>
+    <dimen name="Headfont">36sp</dimen>
+    <dimen name="Margins">10sp</dimen>
+    <dimen name="Buttonsize">40sp</dimen>
+    <dimen name="marginsize">5sp</dimen>
+    <dimen name="tsize">20sp</dimen>
+
+
+    <dimen name="fontsize12">12sp</dimen>
+    <dimen name="fontsize20">20sp</dimen>
+    <dimen name="fontsize30">30sp</dimen>
+
+
+    <!--Screen pixl-->
+    <dimen name="sp16">16sp</dimen>
+    <dimen name="sp18">18sp</dimen>
+    <dimen name="sp20">20sp</dimen>
+    <dimen name="sp24">24sp</dimen>
+    <dimen name="sp28">28sp</dimen>
+    <dimen name="sp30">30sp</dimen>
+    <!--dimention pixl-->
+    <dimen name="dp15">15dp</dimen>
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp30">30dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp36">36dp</dimen>
+    <dimen name="dp48">48dp</dimen>
+    <dimen name="dp52">52dp</dimen>
+    <dimen name="dp60">60dp</dimen>
+    <dimen name="dp70">70dp</dimen>
+    <dimen name="dp80">80dp</dimen>
+
+
+    <dimen name="my5dp">5dp</dimen>
+    <dimen name="my15dp">15dp</dimen>
+    <dimen name="paddong">10dp</dimen>
+    <dimen name="margin">20dp</dimen>
+    <dimen name="mymargin">60dp</dimen>
+
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+</resources>
